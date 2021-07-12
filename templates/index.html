@@ -24,9 +24,12 @@
                     <td>{{ task.content }}</td>
                     <td>{{ task.date_created.date() }}</td>
                     <td>
-                        <a role="button" class="btn btn-info btn-sm" href="update/{{task.id}}">
+                        <!-- <a role="button" class="btn btn-info btn-sm" href="update/{{task.id}}">
                             <i class="fa fa-pencil" aria-hidden="true"></i>
-                        </a>
+                        </a> -->
+                        <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModal" onclick="updateTask('{{task.id}}', '{{ task.content }}')">
+                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                        </button>
                         <a role="button" class="btn btn-danger btn-sm" href="delete/{{task.id}}">
                             <i class="fa fa-trash" aria-hidden="true"></i>
                         </a>
@@ -44,4 +47,41 @@
         </form>
     </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <form action="/update/" method="POST" class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Update Task</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="id" name="id" value="">
+        <div class="form-group">
+            <label for="taskContentId">Task Name</label>
+            <input class="form-control" type="text" name="taskContent" id="taskContentId" value="">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <input type="submit" class="col-3 ml-2 btn btn-primary" value="Save changes">
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+    function updateTask(id, content) {
+        // console.log(id);
+        // console.log(content);
+        document.getElementById('id').value = id;
+        document.getElementById('taskContentId').value = content;
+
+        // document.getElementById("exampleModal").showModal();
+    }
+</script>
+
 {% endblock %}
